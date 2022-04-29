@@ -1,6 +1,14 @@
 /* Menu Container */
 .menu {
   width: 70%;
-  height: 100rem;
-  margin: 20rem auto 0;
+  max-height: 100rem;
+  margin: 20rem auto 10rem;
+}
+
+.menu-items-list {
+  gap: 1rem;
+  padding: 4rem;
+  display: flex;
+  list-style: none;
+  flex-direction: column;
 }

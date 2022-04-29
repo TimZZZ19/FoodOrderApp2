@@ -1,7 +1,7 @@
 import React from "react";
+import Card from "../reusables/Card";
 import classes from "./Hero.module.css";
 import heroImage from "../../assets/indian-cuisine.jpeg";
-import Card from "../reusable_components/Card";
 
 export default function Hero() {
   return (
@@ -10,7 +10,7 @@ export default function Hero() {
         <img src={heroImage} alt="beautiful food"></img>
       </div>
       <div className={classes["hero__marketing-msg"]}>
-        <Card>
+        <Card cardAppearing={true}>
           <h1>Great Food, Fast Delivery</h1>
           <p>The most popular food-ordering platform</p>
           <p>Provide you the best food-ordering experience</p>
