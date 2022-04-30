@@ -1,4 +1,5 @@
 import React from "react";
+import CommonBtn from "../reusables/CommonBtn";
 import classes from "./MenuItemOrderUI.module.css";
 
 export default function MenuItemOrderUI() {
@@ -6,10 +7,10 @@ export default function MenuItemOrderUI() {
     <form className={classes["order-form"]}>
       <span className={classes["qty-control"]}>
         <button>-</button>
-        <input type="number" placeholder="qty"></input>
+        <input type="text" placeholder="qty" />
         <button>+</button>
       </span>
-      <button className={classes["add-to-cart"]}>Add</button>
+      <CommonBtn> Add </CommonBtn>
     </form>
   );
 }

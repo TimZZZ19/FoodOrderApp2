@@ -1,0 +1,15 @@
+.cart-container {
+  top: 50%;
+  left: 50%;
+  gap: 2rem;
+  z-index: 3;
+  width: 42rem;
+  display: flex;
+  position: fixed;
+  border-radius: 3rem;
+  flex-direction: column;
+  padding: 6rem 3rem 3rem;
+  background-color: white;
+  justify-content: space-between;
+  transform: translate(-50%, -50%);
+}

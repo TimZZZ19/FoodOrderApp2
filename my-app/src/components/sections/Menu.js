@@ -10,7 +10,7 @@ export default function Menu() {
 
   const menuItems = foodContext.menuItems;
   const menuItem = menuItems.map((item) => (
-    <MenuItem key={item.id} {...item} />
+    <MenuItem key={item.menuId} {...item} />
   ));
 
   return (
