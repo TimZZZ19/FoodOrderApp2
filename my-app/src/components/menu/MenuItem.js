@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./MenuItem.module.css";
 import MenuItemOrderUI from "./MenuItemOrderUI";
 
-export default function MenuItem({ menuId, name, description, price }) {
+export default function MenuItem({ name, description, price }) {
   const styledPrice = `$ ${price.toFixed(2)}`;
 
   return (
@@ -13,7 +13,7 @@ export default function MenuItem({ menuId, name, description, price }) {
         <p className={classes.price}>{styledPrice}</p>
       </div>
       <div className={classes["menu-item__order-UI"]}>
-        <MenuItemOrderUI />
+        <MenuItemOrderUI name={name} price={price} />
       </div>
     </li>
   );

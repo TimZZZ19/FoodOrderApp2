@@ -6,7 +6,8 @@ export default function CommonBtn(props) {
 
   return (
     <button
-      className={classes["common-btn"]}
+      onClick={props.onClick}
+      className={`${classes["common-btn"]} ${props.isBumping && classes.bump}`}
       style={{ ...props, background: bngColor }}
       onMouseLeave={() => setBngColor(props.bngColor)}
       onMouseEnter={() => setBngColor(props.hoverBngColor)}

@@ -15,7 +15,7 @@
 }
 
 .cart-item__price {
-  width: 6rem;
+  width: 8rem;
   color: #8b4513;
 }
 
@@ -27,19 +27,23 @@
   display: flex;
 }
 
-.cart-item__qty-control button {
+.qty-btns {
   width: 4.8rem;
+  display: flex;
   cursor: pointer;
   overflow: hidden;
   font-size: 1.8rem;
   align-self: center;
+  align-items: center;
   border-radius: 1.5rem;
-  padding: 0.3rem 0.6rem;
+  justify-content: center;
   background-color: transparent;
+
+  padding: 0.5rem 0.6rem;
   border: 0.2rem solid #8b4513;
 }
 
-.cart-item__qty-control button:hover {
-  padding: 0 0.3rem;
+.qty-btns:hover {
+  padding: 0.4rem 0.5rem;
   border-width: 0.3rem;
 }

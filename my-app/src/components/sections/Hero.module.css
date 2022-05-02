@@ -33,3 +33,9 @@
 .hero__marketing-msg p {
   padding: 1rem;
 }
+
+@media (max-width: 600px) {
+  .hero__marketing-msg {
+    display: none;
+  }
+}

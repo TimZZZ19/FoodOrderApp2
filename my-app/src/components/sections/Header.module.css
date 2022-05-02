@@ -41,3 +41,13 @@ ion-icon {
 .cart-btn__qty {
   font-size: 2.6rem;
 }
+
+/* @media (max-width: 500px) {
+  .cart-btn__icon {
+    display: none;
+  }
+
+  .cart-btn__container {
+    max-width: 2rem;
+  }
+} */

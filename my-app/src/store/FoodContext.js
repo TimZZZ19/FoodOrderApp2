@@ -3,8 +3,10 @@ import React from "react";
 const FoodContext = React.createContext({
   menuItems: [],
   cartItems: [],
-  addItem: (item) => {},
-  removeItem: (id) => {},
+  addToCart: (item) => {},
+  increaseCartItemQty: (cartId) => {},
+  decreaseCartItemQty: (cartId) => {},
+  removeItemFromCart: (id) => {},
 });
 
 export default FoodContext;
