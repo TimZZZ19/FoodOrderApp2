@@ -1,6 +1,5 @@
-import menuItems from "./menuItems";
-import React, { useReducer } from "react";
 import FoodContext from "./FoodContext";
+import React, { useReducer, useEffect, useState } from "react";
 
 const cartItemsReducer = (cartItems, action) => {
   const cartItemsCopy = [...cartItems];
@@ -29,10 +28,42 @@ const cartItemsReducer = (cartItems, action) => {
 };
 
 export default function FoodContextProvider({ children }) {
+  const [menuItems, setMenuItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState("");
+
   const [cartItems, dispatchCartAction] = useReducer(cartItemsReducer, []);
+
+  useEffect(() => {
+    fetch("https://foodapp-15506-default-rtdb.firebaseio.com/meals.json")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Something went wrong!");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const menuItems = [];
+
+        for (const key in data) {
+          const { name, description, price } = data[key];
+          const newMeal = { menuId: key, name, description, price };
+          menuItems.push(newMeal);
+        }
+
+        setIsLoading(false);
+        setMenuItems(menuItems);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        setHttpError(error.message);
+      });
+  }, []);
 
   const foodContext = {
     menuItems,
+    isLoading,
+    httpError,
     cartItems,
     addToCart: (item) => {
       dispatchCartAction({

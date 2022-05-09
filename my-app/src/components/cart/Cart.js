@@ -2,8 +2,8 @@ import CartItem from "./CartItem";
 import classes from "./Cart.module.css";
 import CartControl from "./CartControl";
 import React, { useContext } from "react";
-import CartContainer from "./CartContainer";
 import Backdrop from "../reusables/Backdrop";
+import CartContainer from "./CartContainer";
 import FoodContext from "../../store/FoodContext";
 
 export default function Cart({ closeCart }) {

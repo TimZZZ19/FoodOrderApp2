@@ -10,7 +10,7 @@ export default function Hero() {
         <img src={heroImage} alt="beautiful food"></img>
       </div>
       <div className={classes["hero__marketing-msg"]}>
-        <Card cardAppearing={true}>
+        <Card cardIsAppearing={true}>
           <h1>Great Food, Fast Delivery</h1>
           <p>The most popular food-ordering platform</p>
           <p>Provide you the best food-ordering experience</p>

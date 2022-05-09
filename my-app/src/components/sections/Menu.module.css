@@ -12,3 +12,11 @@
   list-style: none;
   flex-direction: column;
 }
+
+.loading-text {
+  text-align: center;
+}
+
+.error-message {
+  text-align: center;
+}
