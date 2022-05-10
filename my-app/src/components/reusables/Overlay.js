@@ -1,6 +1,6 @@
 import Cart from "../cart/Cart";
 import Backdrop from "./Backdrop";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Checkout from "../checkout/Checkout";
 import OverlayContainer from "./OverlayContainer";
 import FoodContext from "../../store/FoodContext";
@@ -8,11 +8,20 @@ import FoodContext from "../../store/FoodContext";
 export default function Overlay({ cartControl, checkOutControl }) {
   const { cartOpen, closeCart, checkOut } = cartControl;
   const { checkoutOpen, goBackToCart, confirmOrder } = checkOutControl;
+  const [clearCheckoutform, setClearCheckoutForm] = useState(false);
 
   const foodContext = useContext(FoodContext);
   const cartItems = foodContext.cartItems;
   const subtotal = cartItems.reduce((a, b) => a + b.qty * b.unitPrice, 0);
   const styledSubtotal = `$ ${subtotal.toFixed(2)}`;
+
+  const submitOrder = (userData) => {
+    fetch("https://foodapp-15506-default-rtdb.firebaseio.com/meals.json", {
+      method: "POST",
+      body: JSON.stringify({ userData, orderedItems: cartItems }),
+    });
+    setClearCheckoutForm(true);
+  };
 
   let overlayContent;
   if (cartOpen) {
@@ -28,9 +37,12 @@ export default function Overlay({ cartControl, checkOutControl }) {
   if (checkoutOpen) {
     overlayContent = (
       <Checkout
+        submitOrder={submitOrder}
         goBackToCart={goBackToCart}
         confirmOrder={confirmOrder}
         styledSubtotal={styledSubtotal}
+        clearCheckoutform={clearCheckoutform}
+        setClearCheckoutForm={setClearCheckoutForm}
       />
     );
   }

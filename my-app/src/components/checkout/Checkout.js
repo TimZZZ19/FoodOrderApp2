@@ -1,16 +1,24 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Checkout.module.css";
 import OrderControl from "../reusables/OrderControl";
 
 const isEmpty = (value) => value.length === 0;
 
-export default function Checkout({ styledSubtotal, goBackToCart }) {
+export default function Checkout({
+  styledSubtotal,
+  goBackToCart,
+  submitOrder,
+  clearCheckoutform,
+  setClearCheckoutForm,
+}) {
   const cvcRef = useRef();
   const nameRef = useRef();
   const phoneRef = useRef();
   const addressRef = useRef();
   const creditCardRef = useRef();
   const expirationRef = useRef();
+
+  const formRef = useRef();
 
   const [formInvalidity, setFormInvalidity] = useState({});
 
@@ -49,6 +57,21 @@ export default function Checkout({ styledSubtotal, goBackToCart }) {
     if (!formIsValid) {
       return;
     }
+
+    const userData = {
+      deliveryInfo: {
+        name: enteredName,
+        phone: enteredPhone,
+        address: enteredAddress,
+      },
+      paymentInfo: {
+        cvc: enteredCVC,
+        creditCard: enteredCreditCard,
+        expiration: enteredExpiration,
+      },
+    };
+
+    submitOrder(userData);
   };
 
   const nameSecondaryClass = formInvalidity.name && styles.invalid;
@@ -56,26 +79,91 @@ export default function Checkout({ styledSubtotal, goBackToCart }) {
   const addressSecondaryClass = formInvalidity.address && styles.invalid;
   const creditCardSecondaryClass = formInvalidity.creditCard && styles.invalid;
   const expirationTertiaryClass = formInvalidity.expiration && styles.invalid;
+  const cvcTertiaryClass = formInvalidity.cvc && styles.invalid;
+
+  const nameInvalidityHandler = () => {
+    setFormInvalidity((prev) => {
+      return { ...prev, name: false };
+    });
+  };
+
+  const phoneInvalidityHandler = () => {
+    setFormInvalidity((prev) => {
+      return { ...prev, phone: false };
+    });
+  };
+
+  const addressInvalidityHandler = () => {
+    setFormInvalidity((prev) => {
+      return { ...prev, address: false };
+    });
+  };
+
+  const creditCardInvalidityHandler = () => {
+    setFormInvalidity((prev) => {
+      return { ...prev, creditCard: false };
+    });
+  };
+
+  const expirationInvalidityHandler = () => {
+    setFormInvalidity((prev) => {
+      return { ...prev, expiration: false };
+    });
+  };
+
+  const cvcInvalidityHandler = () => {
+    setFormInvalidity((prev) => {
+      return { ...prev, cvc: false };
+    });
+  };
+
+  if (clearCheckoutform) {
+    cvcRef.current.value = null;
+    nameRef.current.value = null;
+    phoneRef.current.value = null;
+    addressRef.current.value = null;
+    creditCardRef.current.value = null;
+    expirationRef.current.value = null;
+  }
+
+  useEffect(() => {
+    setClearCheckoutForm(false);
+  }, [clearCheckoutform]);
 
   return (
     <>
       <h2 className={styles.title}>Checkout</h2>
-      <form className={styles.form}>
+      <form className={styles.form} ref={formRef}>
         <section className={styles["form-section"]}>
           <div className={styles["section-title"]}>
             <h4>Delivery Address</h4>
           </div>
           <div className={`${styles["form-item"]} ${nameSecondaryClass}`}>
             <label htmlFor="name">Name</label>
-            <input id="name" type="text" ref={nameRef} />
+            <input
+              id="name"
+              type="text"
+              ref={nameRef}
+              onChange={nameInvalidityHandler}
+            />
           </div>
           <div className={`${styles["form-item"]} ${phoneSecondaryClass}`}>
             <label htmlFor="phone-number">Phone</label>
-            <input id="phone-number" type="text" ref={phoneRef} />
+            <input
+              id="phone-number"
+              type="text"
+              ref={phoneRef}
+              onChange={phoneInvalidityHandler}
+            />
           </div>
           <div className={`${styles["form-item"]} ${addressSecondaryClass}`}>
             <label htmlFor="address">Address</label>
-            <input id="address" type="text" ref={addressRef} />
+            <input
+              id="address"
+              type="text"
+              ref={addressRef}
+              onChange={addressInvalidityHandler}
+            />
           </div>
         </section>
         <hr />
@@ -85,27 +173,38 @@ export default function Checkout({ styledSubtotal, goBackToCart }) {
           </div>
           <div className={`${styles["form-item"]} ${creditCardSecondaryClass}`}>
             <label htmlFor="card-number">Credit Card</label>
-            <input id="card-number" type="text" ref={creditCardRef} />
+            <input
+              id="card-number"
+              type="text"
+              ref={creditCardRef}
+              onChange={creditCardInvalidityHandler}
+            />
           </div>
           <div
-            className={`${styles["form-item"]} ${styles["expiration-div"]}  ${expirationTertiaryClass}`}
+            className={`${styles["form-item"]} 
+            ${styles["expiration-div"]}  
+            ${expirationTertiaryClass}`}
           >
             <label htmlFor="expiration">Expiration</label>
-            <input id="expiration" type="date" ref={expirationRef} />
+            <input
+              id="expiration"
+              type="date"
+              ref={expirationRef}
+              onChange={expirationInvalidityHandler}
+            />
           </div>
           <div
-            className={`${styles["form-item"]} ${styles["cvc-div"]} ${
-              formInvalidity.expiration && styles.invalid
-            }`}
+            className={`${styles["form-item"]} 
+            ${styles["cvc-div"]} 
+            ${cvcTertiaryClass}`}
           >
             <label htmlFor="cvc">CVC</label>
             <input
-              className={`${styles["cvc-input"]} ${
-                formInvalidity.cvc && styles["invalid-cvc"]
-              }`}
+              className={`${styles["cvc-input"]}`}
               id="cvc"
               type="number"
               ref={cvcRef}
+              onChange={cvcInvalidityHandler}
             />
           </div>
         </section>

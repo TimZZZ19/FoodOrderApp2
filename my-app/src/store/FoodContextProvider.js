@@ -46,9 +46,11 @@ export default function FoodContextProvider({ children }) {
         const menuItems = [];
 
         for (const key in data) {
-          const { name, description, price } = data[key];
-          const newMeal = { menuId: key, name, description, price };
-          menuItems.push(newMeal);
+          if (key.length === 2) {
+            const { name, description, price } = data[key];
+            const newMeal = { menuId: key, name, description, price };
+            menuItems.push(newMeal);
+          }
         }
 
         setIsLoading(false);
