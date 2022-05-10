@@ -20,7 +20,10 @@ export default function Overlay({ cartControl, checkOutControl }) {
       method: "POST",
       body: JSON.stringify({ userData, orderedItems: cartItems }),
     });
+
+    // Reset checkout form and cart
     setClearCheckoutForm(true);
+    foodContext.resetCart();
   };
 
   let overlayContent;

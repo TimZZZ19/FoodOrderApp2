@@ -22,6 +22,9 @@ const cartItemsReducer = (cartItems, action) => {
     case "REMOVE_ITEM":
       return cartItemsCopy.filter((item) => item.cartId !== action.cartId);
 
+    case "RESET_CART":
+      return [];
+
     default:
       return [];
   }
@@ -89,6 +92,11 @@ export default function FoodContextProvider({ children }) {
       dispatchCartAction({
         operation: "REMOVE_ITEM",
         cartId,
+      });
+    },
+    resetCart: () => {
+      dispatchCartAction({
+        operation: "RESET_CART",
       });
     },
   };

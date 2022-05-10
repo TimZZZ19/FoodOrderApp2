@@ -7,6 +7,7 @@ const FoodContext = React.createContext({
   increaseCartItemQty: (cartId) => {},
   decreaseCartItemQty: (cartId) => {},
   removeItemFromCart: (id) => {},
+  resetCart: () => {},
 });
 
 export default FoodContext;
