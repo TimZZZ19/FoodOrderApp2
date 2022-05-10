@@ -1,21 +1,17 @@
+import React from "react";
 import CartItem from "./CartItem";
 import classes from "./Cart.module.css";
-import CartControl from "./CartControl";
-import React, { useContext } from "react";
-import Backdrop from "../reusables/Backdrop";
-import CartContainer from "./CartContainer";
-import FoodContext from "../../store/FoodContext";
+import OrderControl from "../reusables/OrderControl";
 
-export default function Cart({ closeCart }) {
-  const foodContext = useContext(FoodContext);
-  const cartItems = foodContext.cartItems;
-
+export default function Cart({
+  styledSubtotal,
+  cartItems,
+  closeCart,
+  checkOut,
+}) {
   const cartItemsUl = cartItems.map((item) => (
     <CartItem key={item.cartId} {...item} />
   ));
-
-  const subtotal = cartItems.reduce((a, b) => a + b.qty * b.unitPrice, 0);
-  const styledSubtotal = `$ ${subtotal.toFixed(2)}`;
 
   const cartContent =
     cartItems.length === 0 ? (
@@ -28,15 +24,13 @@ export default function Cart({ closeCart }) {
 
   return (
     <>
-      <Backdrop onClick={closeCart} />
-      <CartContainer>
-        <h2 className={classes.title}>Cart</h2>
-        {cartContent}
-        <CartControl
-          subtotal={styledSubtotal}
-          closeCart={closeCart}
-        ></CartControl>
-      </CartContainer>
+      <h2 className={classes.title}>Cart</h2>
+      {cartContent}
+      <OrderControl
+        subtotal={styledSubtotal}
+        leftBtn={{ text: "Close", func: closeCart }}
+        rightBtn={{ text: "Check Out", func: checkOut }}
+      ></OrderControl>
     </>
   );
 }

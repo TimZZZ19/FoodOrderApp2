@@ -1,33 +1,34 @@
 import React from "react";
-import classes from "./CartControl.module.css";
-import CommonBtn from "../reusables/CommonBtn";
+import CommonBtn from "./CommonBtn";
+import classes from "./OrderControl.module.css";
 
-export default function CartControl({ closeCart, subtotal }) {
+export default function OrderControl({ subtotal, leftBtn, rightBtn }) {
   return (
     <div className={classes["cart-control"]}>
       <div className={classes.subtotal}>
-        <span className={classes.text}>Subtotal</span>
+        <span className={classes.text}>Total</span>
         <span className={classes.price}>{subtotal}</span>
       </div>
       <div className={classes["cart-btns"]}>
         <CommonBtn
           color={"black"}
           bngColor={"#ccc"}
-          onClick={closeCart}
           fontSize={"2.6rem"}
+          onClick={leftBtn.func}
           padding={"0.6rem 2rem"}
           borderRadius={"3.2rem"}
           hoverBngColor={"#b8b8b8"}
         >
-          Close
+          {leftBtn.text}
         </CommonBtn>
         <CommonBtn
           color={"white"}
           fontSize={"2.6rem"}
+          onClick={rightBtn.func}
           padding={"0.6rem 2rem"}
           borderRadius={"3.2rem"}
         >
-          Order
+          {rightBtn.text}
         </CommonBtn>
       </div>
     </div>
