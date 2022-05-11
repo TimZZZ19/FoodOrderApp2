@@ -53,7 +53,12 @@ function App() {
       {overlayOpen && (
         <Overlay
           cartControl={{ cartOpen, closeCart, checkOut }}
-          checkOutControl={{ checkoutOpen, goBackToCart, confirmOrder }}
+          checkOutControl={{
+            checkoutOpen,
+            setCheckoutOpen,
+            goBackToCart,
+            confirmOrder,
+          }}
         />
       )}
       <Hero />

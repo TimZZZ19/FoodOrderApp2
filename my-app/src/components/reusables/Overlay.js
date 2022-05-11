@@ -4,11 +4,15 @@ import React, { useContext, useState } from "react";
 import Checkout from "../checkout/Checkout";
 import OverlayContainer from "./OverlayContainer";
 import FoodContext from "../../store/FoodContext";
+import classes from "./Overlay.module.css";
 
 export default function Overlay({ cartControl, checkOutControl }) {
   const { cartOpen, closeCart, checkOut } = cartControl;
-  const { checkoutOpen, goBackToCart, confirmOrder } = checkOutControl;
+  const { checkoutOpen, setCheckoutOpen, goBackToCart, confirmOrder } =
+    checkOutControl;
   const [clearCheckoutform, setClearCheckoutForm] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [displayingSubmitted, setDisplayingSubmitted] = useState(false);
 
   const foodContext = useContext(FoodContext);
   const cartItems = foodContext.cartItems;
@@ -16,14 +20,23 @@ export default function Overlay({ cartControl, checkOutControl }) {
   const styledSubtotal = `$ ${subtotal.toFixed(2)}`;
 
   const submitOrder = (userData) => {
+    setIsSubmitting(true);
+
     fetch("https://foodapp-15506-default-rtdb.firebaseio.com/meals.json", {
       method: "POST",
       body: JSON.stringify({ userData, orderedItems: cartItems }),
-    });
+    }).then(() => {
+      setIsSubmitting(false);
+      foodContext.resetCart();
+      setClearCheckoutForm(true);
+      setCheckoutOpen(false);
+      setDisplayingSubmitted(true);
 
-    // Reset checkout form and cart
-    setClearCheckoutForm(true);
-    foodContext.resetCart();
+      setTimeout(() => {
+        setDisplayingSubmitted(false);
+        closeCart();
+      }, 2000);
+    });
   };
 
   let overlayContent;
@@ -47,6 +60,16 @@ export default function Overlay({ cartControl, checkOutControl }) {
         clearCheckoutform={clearCheckoutform}
         setClearCheckoutForm={setClearCheckoutForm}
       />
+    );
+  }
+  if (isSubmitting) {
+    overlayContent = (
+      <p className={classes["submission-text"]}>Submitting order...</p>
+    );
+  }
+  if (displayingSubmitted) {
+    overlayContent = (
+      <p className={classes["submission-text"]}>Order submitted</p>
     );
   }
 

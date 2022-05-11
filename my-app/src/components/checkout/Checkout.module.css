@@ -27,6 +27,11 @@
   color: red;
 }
 
+.invalid input {
+  border-color: red;
+  border-style: groove;
+}
+
 /* some seoncary classes */
 .expiration-div {
   padding-right: 8.5rem;
