@@ -63,7 +63,6 @@ function App() {
       )}
       <Hero />
       <Menu />
-      <p>Test</p>
     </FoodContextProvider>
   );
 }
