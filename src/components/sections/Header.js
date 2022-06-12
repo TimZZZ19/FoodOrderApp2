@@ -30,11 +30,11 @@ export default function Header({ showCart }) {
       <CommonBtn
         onClick={showCart}
         fontSize={"3.0rem"}
-        bngColor={"#61300d"}
+        bngColor={"#97582b"}
         isBumping={isBumping}
         borderRadius={"3.2rem"}
         padding={"0.8rem 2.6rem"}
-        hoverBngColor={"#b09886"}
+        hoverBngColor={"#6f370f"}
       >
         <div className={classes["cart-btn__container"]}>
           <span className={classes["cart-btn__icon"]}>

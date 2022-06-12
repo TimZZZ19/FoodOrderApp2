@@ -5,12 +5,12 @@
   font-size: 1.8rem;
   border-radius: 1.5rem;
   padding: 0.5rem 1.5rem;
-  background-color: #8b4513;
+  background-color: #d38e32;
   transition: background-color 0.3s;
 }
 
 .common-btn:hover {
-  background-color: #61300d;
+  background-color: #a97228;
 }
 
 .bump {
