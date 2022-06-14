@@ -9,7 +9,8 @@
   padding: 0 10%;
   position: sticky;
   align-items: center;
-  background-color: #de8e32;
+  /* background-color: #de8e32; */
+  background-color: red;
   justify-content: space-between;
 }
 
