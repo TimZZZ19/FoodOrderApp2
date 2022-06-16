@@ -27,6 +27,7 @@ export default function OrderControl({ subtotal, leftBtn, rightBtn }) {
           onClick={rightBtn.func}
           padding={"0.6rem 2rem"}
           borderRadius={"3.2rem"}
+          btnDisabled={rightBtn.btnDisabled}
         >
           {rightBtn.text}
         </CommonBtn>

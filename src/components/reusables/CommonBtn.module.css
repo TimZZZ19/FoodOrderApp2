@@ -13,6 +13,11 @@
   background-color: #a97228;
 }
 
+.disabled {
+  pointer-events: none;
+  background-color: #a97228;
+}
+
 .bump {
   animation: bump 300ms ease-out;
 }

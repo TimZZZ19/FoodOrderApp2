@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CartItem from "./CartItem";
 import classes from "./Cart.module.css";
 import OrderControl from "../reusables/OrderControl";
@@ -9,6 +9,7 @@ export default function Cart({
   closeCart,
   checkOut,
 }) {
+  const [checkOutBtnDisabled, setCheckOutBtnDisabled] = useState(true);
   const cartItemsUl = cartItems.map((item) => (
     <CartItem key={item.cartId} {...item} />
   ));
@@ -22,6 +23,14 @@ export default function Cart({
       <ul className={classes["cart-items-ul"]}>{cartItemsUl}</ul>
     );
 
+  useEffect(() => {
+    if (cartItems.length !== 0) {
+      setCheckOutBtnDisabled(false);
+    } else {
+      setCheckOutBtnDisabled(true);
+    }
+  }, [cartItems, checkOutBtnDisabled]);
+
   return (
     <>
       <h2 className={classes.title}>Cart</h2>
@@ -29,7 +38,11 @@ export default function Cart({
       <OrderControl
         subtotal={styledSubtotal}
         leftBtn={{ text: "Close", func: closeCart }}
-        rightBtn={{ text: "Check Out", func: checkOut }}
+        rightBtn={{
+          text: "Check Out",
+          func: checkOut,
+          btnDisabled: checkOutBtnDisabled,
+        }}
       ></OrderControl>
     </>
   );
